@@ -43,11 +43,19 @@ This is not just a collection of tutorials. It is a practical engineering portfo
 
 ## Repository Structure
 
-- `docs/` — Technical documentation and concepts.
-- `labs/` — Hands-on AWS experiments.
-- `projects/` — Complete practical implementations.
-- `diagrams/` — Cloud architecture diagrams.
-- `resources/` — Official documentation and learning resources.
+- `01-foundations/` — Linux, global infrastructure, IAM, AWS CLI, and billing.
+- `02-compute-storage/` — EC2, S3, EBS, EFS, load balancing, autoscaling, Lambda, and ECS Fargate.
+- `03-networking/` — VPC, subnets, gateways, security groups, NACLs, route tables, and Route 53.
+- `04-databases/` — RDS, Aurora, DynamoDB, ElastiCache, backups, and migration.
+- `05-security/` — IAM policies, KMS, Secrets Manager, CloudTrail, GuardDuty, Security Hub, and WAF.
+- `06-monitoring-logging/` — CloudWatch, alarms, logs, X-Ray, and incident management.
+- `07-automation-devops/` — Docker, ECR, GitHub Actions, CodePipeline, CodeBuild, and deployments.
+- `08-terraform/` — Fundamentals, modules, remote state, and environments.
+- `09-architecture-design/` — High availability, fault tolerance, disaster recovery, and Well-Architected design.
+- `projects/` — End-to-end implementations.
+- `diagrams/` — Architecture diagrams grouped by domain.
+- `troubleshooting/` — Notes from real failures, grouped by service.
+- `resources/` — Official documentation, tools, certification material, and interview questions.
 - `ROADMAP.md` — Planned learning journey.
 - `PROGRESS.md` — Completed milestones.
 - `LEARNING_LOG.md` — Weekly learning records.
