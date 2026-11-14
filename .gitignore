@@ -1,0 +1,48 @@
+
+# ==========================================
+# AWS Credentials and Configuration
+# ==========================================
+.aws/
+.aws-sam/
+**/credentials
+**/config.local
+*.pem
+*.ppk
+
+# Never commit environment variables or secrets
+.env
+.env.*
+!.env.example
+*.secret
+secrets/
+credentials/
+
+# ==========================================
+# Terraform
+# ==========================================
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# Terraform plans
+*.tfplan
+tfplan
+
+# ==========================================
+# SSH Keys and Certificates
+# ==========================================
+id_rsa
+id_ed25519
+*.key
+*.crt
