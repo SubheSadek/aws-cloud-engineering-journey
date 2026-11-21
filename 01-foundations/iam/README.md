@@ -1,53 +1,99 @@
-
 # AWS IAM (Identity and Access Management)
 
-## 1. Overview
-IAM stands for Identity and Access Management. In simple words, IAM controls who can access your AWS account and what they are allowed to do.
+## Overview
 
-Example in AWS
+IAM stands for **Identity and Access Management**. In simple words, IAM controls **who** can access your AWS account and **what** they are allowed to do.
 
-Suppose you have an AWS account with:
-- EC2 (your server)
-- S3 (file storage)
-- RDS (database)
+Consider an AWS account with the following services:
 
-You have three people:
+- **EC2** — your server
+- **S3** — file storage
+- **RDS** — database
 
-Person	Permission
-You (Owner)	Full access
-Developer	Access to EC2 only
-Accountant	View billing only
+And three people who need access:
 
+| Person | Permission |
+|---|---|
+| You (Owner) | Full access |
+| Developer | Access to EC2 only |
+| Accountant | View billing only |
 
-IAM permission:
+IAM lets you define exactly these permissions:
 
 ![Permissions](./images/permissions.png)
 
+## Core Concepts
 
-## 2. Core Concepts
-- IAM Users: Who is accessing AWS?
-- IAM Groups: Which team does the user belong to?
-- IAM Roles: What can they do?
-- IAM Policies: What temporary permissions can an identity assume?
+- **IAM Users** — Who is accessing AWS?
+- **IAM Groups** — Which team does the user belong to?
+- **IAM Roles** — What can they do?
+- **IAM Policies** — What temporary permissions can an identity assume?
 
-Let's understand some of them:
-Role	Purpose
-AccountFullAccessRole	Provides full account access to a trusted entity
-AWSManagedAccountManagementAccessRole	Supports AWS account management
-AWSServiceRoleFor...	Allows specific AWS services to perform their required operations
+### Common Roles
 
-The roles starting with AWSServiceRoleFor are generally service-linked roles. AWS creates these to allow its services to operate on your behalf.
+| Role | Purpose |
+|---|---|
+| `AccountFullAccessRole` | Provides full account access to a trusted entity |
+| `AWSManagedAccountManagementAccessRole` | Supports AWS account management |
+| `AWSServiceRoleFor...` | Allows specific AWS services to perform their required operations |
 
-A policy is like a permission document attached to an identity.
+Roles starting with `AWSServiceRoleFor` are generally **service-linked roles**. AWS creates these automatically so its services can operate on your behalf.
 
-For example:
+## Policies
+
+A policy is a permission document attached to an identity.
+
+### Example: EC2ReadOnlyPolicy
+
+```text
 EC2ReadOnlyPolicy
        |
        | Allows
-       |
+       v
 View EC2 instances
 View instance details
 View security groups
        |
-       X
+       v
 Cannot create or delete instances
+```
+
+### Policy JSON
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:DescribeImages",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeVolumes"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+### JSON Property Reference
+
+| JSON property | Meaning |
+|---|---|
+| `Version` | IAM policy language version |
+| `Statement` | Contains permission rules |
+| `Effect` | `Allow` or `Deny` |
+| `Action` | Which AWS operations are permitted |
+| `Resource` | Which resources the rule applies to |
+
+For example:
+
+```json
+"Action": "ec2:DescribeInstances"
+```
+
+This allows the user to view (describe) EC2 instances.
+
+> **Important:** AWS uses **default deny**. If an action isn't allowed by an applicable policy, it is denied — unless another applicable policy grants it.
